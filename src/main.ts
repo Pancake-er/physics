@@ -40,7 +40,7 @@ function draw(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D,
     deltaTime.update();
     PhysicsEntity.resolveCollisions(physicsEntities);
     for (let i: number = 0; i < physicsEntities.length; i++) {
-        physicsEntities[i].update(deltaTime);
+        physicsEntities[i].update(deltaTime.deltaTime);
         physicsEntities[i].draw(canvas, context);
     }
 

@@ -9,26 +9,27 @@ interface CollidingDirections {
     left: boolean;
 }
 class PhysicsEntity {
-    position: Vector2;
-    velocity: Vector2;
-    acceleration: Vector2;
-    size: Vector2;
-    mass: number;
+    public position: Vector2;
+    public velocity: Vector2;
+    public acceleration: Vector2;
+    public size: Vector2;
+    public mass: number;
 
     // Determines weather to do motion for this.
-    doKinematics: boolean;
+    private doKinematics: boolean;
 
     /* Used so that you don't move towards sides that are touching to 
         prevent jittering. */
-    collidingDirections: CollidingDirections;
+    private collidingDirections: CollidingDirections;
 
     /* Used to make sure you don't try and collide with yourself. You might also
         be able to compare references for this? */
-    static newId: number = 0;
-    id: number;
+    private static newId: number = 0;
+    readonly id: number;
 
-    static pixelsPerMeter: number = 100;
-    img: HTMLImageElement;
+    private static pixelsPerMeter: number = 100;
+
+    private img: HTMLImageElement;
     constructor(position: Vector2, velocity: Vector2, size: Vector2, 
         mass: number, doKinematics: boolean) 
     {
@@ -49,10 +50,10 @@ class PhysicsEntity {
         this.img = new Image();
         this.img.src = "images/blue_block.png";
     }
-    update(deltaTime: DeltaTime): void {
+    update(deltaTime: number): void {
         if (this.doKinematics) {
-            this.velocity.x += this.acceleration.x * deltaTime.deltaTime;
-            this.velocity.y += this.acceleration.y * deltaTime.deltaTime;
+            this.velocity.x += this.acceleration.x * deltaTime;
+            this.velocity.y += this.acceleration.y * deltaTime;
 
             if (this.collidingDirections.top && this.velocity.y < 0) {
                 this.velocity.y = 0;
@@ -67,9 +68,9 @@ class PhysicsEntity {
                 this.velocity.x = 0;
             }
 
-            this.position.x += this.velocity.x * deltaTime.deltaTime 
+            this.position.x += this.velocity.x * deltaTime 
                 * PhysicsEntity.pixelsPerMeter;
-            this.position.y += this.velocity.y * deltaTime.deltaTime 
+            this.position.y += this.velocity.y * deltaTime
                 * PhysicsEntity.pixelsPerMeter;
         }
     }

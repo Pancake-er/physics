@@ -31,8 +31,8 @@ class PhysicsEntity {
     }
     update(deltaTime) {
         if (this.doKinematics) {
-            this.velocity.x += this.acceleration.x * deltaTime.deltaTime;
-            this.velocity.y += this.acceleration.y * deltaTime.deltaTime;
+            this.velocity.x += this.acceleration.x * deltaTime;
+            this.velocity.y += this.acceleration.y * deltaTime;
             if (this.collidingDirections.top && this.velocity.y < 0) {
                 this.velocity.y = 0;
             }
@@ -45,9 +45,9 @@ class PhysicsEntity {
             if (this.collidingDirections.left && this.velocity.x < 0) {
                 this.velocity.x = 0;
             }
-            this.position.x += this.velocity.x * deltaTime.deltaTime
+            this.position.x += this.velocity.x * deltaTime
                 * PhysicsEntity.pixelsPerMeter;
-            this.position.y += this.velocity.y * deltaTime.deltaTime
+            this.position.y += this.velocity.y * deltaTime
                 * PhysicsEntity.pixelsPerMeter;
         }
     }

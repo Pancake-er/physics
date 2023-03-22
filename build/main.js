@@ -28,7 +28,7 @@ function draw(canvas, context, deltaTime, physicsEntities) {
     deltaTime.update();
     PhysicsEntity.resolveCollisions(physicsEntities);
     for (let i = 0; i < physicsEntities.length; i++) {
-        physicsEntities[i].update(deltaTime);
+        physicsEntities[i].update(deltaTime.deltaTime);
         physicsEntities[i].draw(canvas, context);
     }
     window.requestAnimationFrame(function () {
