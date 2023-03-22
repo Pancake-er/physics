@@ -7,7 +7,7 @@ class DeltaTime {
         this.timeNow = 0;
         this.deltaTime = 0;
     }
-    update(): void {
+    public update(): void {
         this.timeNow = Date.now();
         this.deltaTime = (this.timeNow - this.timeThen) / 1000;
         if (this.deltaTime == 0) {

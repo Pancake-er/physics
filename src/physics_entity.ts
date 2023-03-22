@@ -50,7 +50,7 @@ class PhysicsEntity {
         this.img = new Image();
         this.img.src = "images/blue_block.png";
     }
-    update(deltaTime: number): void {
+    public update(deltaTime: number): void {
         if (this.doKinematics) {
             this.velocity.x += this.acceleration.x * deltaTime;
             this.velocity.y += this.acceleration.y * deltaTime;
@@ -74,7 +74,7 @@ class PhysicsEntity {
                 * PhysicsEntity.pixelsPerMeter;
         }
     }
-    static checkIfTouching(entity1: PhysicsEntity, 
+    private static checkIfTouching(entity1: PhysicsEntity, 
         entity2: PhysicsEntity): boolean 
     {
         if (entity1.position.x <= entity2.position.x + entity2.size.x 
@@ -86,7 +86,7 @@ class PhysicsEntity {
         }
         return false;
     }
-    static calculateDepth(entity1: PhysicsEntity, 
+    private static calculateDepth(entity1: PhysicsEntity, 
         entity2: PhysicsEntity): Vector2 
     {
         let entity1Center: Vector2 = {x: entity1.position.x + entity1.size.x 
@@ -97,8 +97,8 @@ class PhysicsEntity {
             - Math.abs(entity1Center.x - entity2Center.x), y: entity1.size.y / 2 
             + entity2.size.y / 2 - Math.abs(entity1Center.y - entity2Center.y)};
     }
-    static separateBasedOnDepth(entity: PhysicsEntity, oldEntity: PhysicsEntity,
-        otherOldEntity: PhysicsEntity, depth: Vector2) 
+    private static separateBasedOnDepth(entity: PhysicsEntity, 
+        oldEntity: PhysicsEntity, otherOldEntity: PhysicsEntity, depth: Vector2) 
     {
         if (depth.x < depth.y) {
             if (oldEntity.position.x < otherOldEntity.position.x) {
@@ -121,7 +121,7 @@ class PhysicsEntity {
             }
         }
     }
-    static resolveCollisions(physicsEntities: PhysicsEntity[]): void {
+    public static resolveCollisions(physicsEntities: PhysicsEntity[]): void {
         let oldPhysicsEntities: PhysicsEntity[] = [...physicsEntities]; 
         for (let i: number = 0; i < oldPhysicsEntities.length; i++) {
 
@@ -145,7 +145,9 @@ class PhysicsEntity {
             }
         }
     }
-    draw(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D): void {
+    public draw(canvas: HTMLCanvasElement, 
+        context: CanvasRenderingContext2D): void 
+    {
         context.drawImage(this.img, this.position.x, this.position.y, 
             this.size.x, this.size.y);
     }
